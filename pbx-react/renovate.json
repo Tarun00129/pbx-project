@@ -1,0 +1,35 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    "group:postcss",
+    ":semanticCommits",
+    ":semanticCommitTypeAll(chore)",
+    ":automergePr",
+    ":automergeLinters",
+    ":automergeTesters",
+    ":automergeTypes"
+  ],
+  "composerIgnorePlatformReqs": null,
+  "separateMultipleMajor": true,
+  "rangeStrategy": "update-lockfile",
+  "reviewers": [
+    "akshaycrenspire"
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "phpstan/phpstan",
+        "phpstan/phpstan-symfony",
+        "overtrue/phplint"
+      ],
+      "matchPackagePatterns": [
+        "^@fontsource"
+      ],
+      "automerge": true
+    }
+  ],
+  "schedule": [
+    "before 2am on Saturday"
+  ]
+}

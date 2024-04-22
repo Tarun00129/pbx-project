@@ -1,0 +1,46 @@
+# conduit-standards folder for linting
+.tmp_staging
+
+# visual studio code
+.vscode
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+node_modules/
+
+# If a developer runs npm/yarn install in root, ignore those files.
+package.json
+yarn.lock
+package-lock.json
+
+# phpstorm
+.idea/
+
+vendor/
+
+# https://github.com/github/gitignore
+
+# Un-ignore from root .gitignore
+!package.json
+!yarn.lock
+
+# ignore everything in dist BUT .gitkeep, so git "tracks" the empty dist folder
+dist/*
+!dist/.gitkeep
+
+dist-build/*
+!dist-build/.gitkeep
+
+dist-tmp/*
+!dist-tmp/.gitkeep
+
+# Logs
+logs
+*.log
+lerna-debug.log*
+
+webpack.config.local.js

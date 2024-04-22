@@ -1,0 +1,23 @@
+// Environment
+//
+// This file contains all variables, mixins, functions and other identifiers
+// which may be used throughout the project.
+//
+// Intended to serve as the main import which appears at the top of most
+// <Component>.scss files, etc.
+//
+// By importing this one file, developers will have all project variables and
+// utilities at their disposal.
+//
+// Importing this file should never output any CSS!
+//
+// Feel free to add additional imports to this file.
+//
+@import "src/styles/partials/_variables";
+@import "src/styles/partials/_functions";
+
+// Mixins
+@import "src/styles/partials/mixins/_generic";
+
+// Placeholders
+@import "src/styles/partials/placeholders/_generic";

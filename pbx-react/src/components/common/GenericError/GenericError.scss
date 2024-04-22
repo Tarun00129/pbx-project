@@ -1,0 +1,40 @@
+// GenericError.scss
+// -----------------------------------------------------------------------------
+
+@import "src/styles/partials/_environment";
+
+.generic-error {
+    max-width: 620px;
+    padding: 10px;
+    text-align: center;
+
+    &__img {
+        width: 125px;
+        margin: auto;
+    }
+
+    &__header {
+        margin-top: 20px;
+    }
+
+    &__btn-container {
+        margin: 50px 0 35px;
+    }
+
+    &__login {
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: #666666;
+
+        &:hover {
+            color: #666666;
+            text-decoration: none;
+        }
+    }
+
+    &__btn-try-again {
+        display: inline;
+        padding-right: 50px;
+        padding-left: 50px;
+    }
+}

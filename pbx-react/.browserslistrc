@@ -1,0 +1,7 @@
+# Run npx browserslist to generate browsers from this query
+> 0.5%
+last 5 versions
+Firefox ESR
+not dead
+not IE 10
+not IE 11

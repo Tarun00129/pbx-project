@@ -1,0 +1,58 @@
+// Generic Mixins
+//
+// media-breakpoint-up / media-breakpoint-down from Bootstrap 4.x
+// -----------------------------------------------------------------------------
+
+@import "./../variables";
+@import "./../functions";
+
+// Media of at least the minimum breakpoint width. No query for the smallest breakpoint.
+// Makes the @content apply to the given breakpoint and wider.
+@mixin media-breakpoint-up($name, $breakpoints: $grid-breakpoints) {
+    $min: breakpoint-min($name, $breakpoints);
+
+    @if $min {
+        @media (min-width: $min) {
+            @content;
+        }
+    }
+
+    @else {
+        @content;
+    }
+}
+
+// Media of at most the maximum breakpoint width. No query for the largest breakpoint.
+// Makes the @content apply to the given breakpoint and narrower.
+@mixin media-breakpoint-down($name, $breakpoints: $grid-breakpoints) {
+    $max: breakpoint-max($name, $breakpoints);
+
+    @if $max {
+        @media (max-width: $max) {
+            @content;
+        }
+    }
+
+    @else {
+        @content;
+    }
+}
+
+// Desktop Breakpoint
+@mixin layout-media-breakpoint-desktop() {
+    @include media-breakpoint-up("md") {
+        @content;
+    }
+}
+// Mobile Breakpoint
+@mixin layout-media-breakpoint-mobile() {
+    @include media-breakpoint-down("sm") {
+        @content;
+    }
+}
+// Mobile XS Breakpoint
+@mixin layout-media-breakpoint-mobile-xs() {
+    @include media-breakpoint-down("xs") {
+        @content;
+    }
+}

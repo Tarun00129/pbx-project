@@ -1,0 +1,118 @@
+{{!--
+
+This template generates a react component.
+
+--}}
+{{#if extendBaseComponent}}
+import React from 'react';
+{{else}}
+import React, { Component } from 'react';
+{{/if}}
+import PropTypes from 'prop-types';
+import flowRight from 'lodash.flowright';
+import { classname, cns } from 'src/util/bem';
+{{#if hasStoresProps}}
+import withStores from 'src/components/hoc/withStores';
+{{/if}}
+{{#if hasTranslationProp}}
+import withTranslation from 'src/components/hoc/withTranslation';
+{{/if}}
+{{#if extendBaseComponent}}
+import BaseComponent from 'src/components/BaseComponent/BaseComponent';
+{{/if}}
+import './{{pascalCase componentName}}.scss';
+
+{{#if extendBaseComponent}}
+class {{pascalCase componentName}} extends BaseComponent {
+{{else}}
+class {{pascalCase componentName}} extends Component {
+{{/if}}
+
+    static propTypes = {
+        className: PropTypes.string,
+        {{#if hasStoresProps}}
+        stores: PropTypes.object.isRequired,
+        {{/if}}
+        {{#if hasTranslationProp}}
+        t: PropTypes.func,
+        {{/if}}
+    };
+
+    static defaultProps = {
+        className: '',
+        {{#if hasTranslationProp}}
+        t: (translationKey = '') => translationKey,
+        {{/if}}
+    };
+
+    constructor(props) {
+
+        super(props);
+
+{{#if (and extendBaseComponent hasTranslationProp hasTranslationPrefix)}}
+        const { t } = this.setTranslationPrefix('components.{{pascalCase componentName}}');
+        this.t = t;
+{{/if}}
+
+{{#if extendBaseComponent}}
+        this.initializeState({
+            // initial state
+        });
+{{else}}
+        this.state = {
+            // initial state
+        };
+{{/if}}
+
+    }
+
+    render() {
+
+        const cn = classname('{{kebabCase componentName}}');
+{{#if hasStoresProps}}
+        {{!-- intentional new line below for perfect spacing between render() and comments --}}
+
+        // You now have access to all the stores from stores.js via the stores prop.
+        // Delete the console log and these comments before committing!
+        console.log(this.props.stores);
+{{/if}}
+{{#if hasTranslationProp}}
+        {{!-- intentional new line below for perfect spacing between render() and comments --}}
+
+        // You now have access to the 't' (translate) function
+        // Delete the console log and these comments before committing!
+{{#if (and extendBaseComponent hasTranslationPrefix)}}
+        // console.log(this.t('message'));
+{{else}}
+        // console.log(this.props.t('components.{{pascalCase componentName}}.message'));
+{{/if}}
+{{/if}}
+
+        return (
+
+            <div
+                id={cn()}
+                className={cns(
+                    cn(),
+                    this.props.className,
+                )}
+            >
+
+                {/* Add your code here! */}
+
+            </div>
+
+        );
+
+    }
+
+}
+
+export default flowRight(
+{{#if hasTranslationProp}}
+    withTranslation,
+{{/if}}
+{{#if hasStoresProps}}
+    withStores,
+{{/if}}
+)({{pascalCase componentName}});

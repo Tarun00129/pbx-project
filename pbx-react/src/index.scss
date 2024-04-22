@@ -1,0 +1,86 @@
+// index.scss
+// ---------------------------------------------------------------------------
+@import "src/styles/partials/_environment";
+@import "normalize.css/normalize.css";
+
+// react-toastify
+@import "react-toastify/dist/ReactToastify.min.css";
+
+// Roboto
+@import "@fontsource/roboto/index.css";
+//@import "@fontsource/roboto/300.css";
+@import "@fontsource/roboto/500.css";
+@import "@fontsource/roboto/700.css";
+//@import "@fontsource/roboto/900.css";
+
+// Rubik
+@import "~@fontsource/rubik/500.css";
+
+// https://css-tricks.com/box-sizing/
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    overflow-x: hidden;
+}
+
+html {
+    // https://stackoverflow.com/a/6654996/3837451
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    font-family: var(--theme-font-family-body);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    min-width: 100%;
+    min-height: 100%;
+    padding: 0;
+    margin: 0;
+
+    @include layout-media-breakpoint-mobile() {
+        flex-direction: row;
+    }
+
+    // Grow first child (#app in this case)
+    & > *:first-child {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        align-items: stretch;
+        justify-content: flex-start;
+    }
+}
+
+/*
+ * clears the 'X' from IE, Edge, and Chrome
+ * React doesn't pick it up in an onChange event.
+ */
+input {
+    &::-ms-clear {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+
+    &::-ms-reveal {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+
+    /* clears the 'X' from Chrome */
+    &::-webkit-search-decoration,
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-results-button,
+    &::-webkit-search-results-decoration {
+        display: none;
+    }
+}

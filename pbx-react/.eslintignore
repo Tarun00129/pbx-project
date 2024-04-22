@@ -1,0 +1,6 @@
+# Include eslint and stylelint in eslint
+!.eslintrc.js
+!.stylelintrc.js
+/dist/
+/dist-build/
+/dist-tmp/

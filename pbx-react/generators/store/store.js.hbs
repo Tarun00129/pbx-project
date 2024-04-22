@@ -1,0 +1,67 @@
+{{!--
+
+This template generates a store class.
+
+--}}
+import AbstractStore from 'src/stores/AbstractStore';
+
+class {{pascalCase storeName}}Store extends AbstractStore {
+
+    /**
+     * @param {Number} id
+     *
+     * @return {Promise}
+     */
+    get{{pascalCase storeName}} = (id) => {
+
+        return this.store.find(`/{{kebabCase storeName}}s/${id}`);
+
+    };
+
+    /**
+     * @param {Object}
+     *
+     * @return {Promise}
+     */
+    get{{pascalCase storeName}}s = ({
+        filterTypes = [],
+        filterValues = [],
+        orderBy = null,
+        orderDir = null,
+        page = null,
+        numPerPage = null,
+    } = {}) => {
+
+        return this.store.findAll('/{{kebabCase storeName}}s', {
+            filterTypes,
+            filterValues,
+            orderBy,
+            orderDir,
+            page,
+            numPerPage,
+        });
+
+    };
+
+    /**
+     * @param {Object}
+     *
+     * @return {Promise}
+     */
+    create{{pascalCase storeName}} = ({
+        param1,
+        param2,
+        isFoo = true
+    } = {}) => {
+
+        return this.store.create('/{{kebabCase storeName}}s', {
+            param1: param1,
+            param2: param2,
+            isFoo: isFoo,
+        });
+
+    };
+
+}
+
+export default {{pascalCase storeName}}Store;

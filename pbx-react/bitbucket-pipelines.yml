@@ -1,0 +1,46 @@
+# Only use spaces to indent your .yml configuration.
+image:
+    name: node:16.19.0-alpine
+    run-as-user: 1000
+pipelines:
+    pull-requests:
+        '**':
+            # Clear bitbucket pipeline cache if any files in includePaths changes.
+            # This is added to ensure we're installing fresh dependencies when they change,
+            # so our linters, testers, etc, are correctly reporting any issues.
+            - step:
+                name: Conditionally Delete Cache
+                script:
+                    -
+                        pipe: atlassian/bitbucket-clear-cache:3.1.1
+                        variables:
+                            BITBUCKET_USERNAME: $CLEAR_CACHE_BITBUCKET_USER_NAME
+                            BITBUCKET_APP_PASSWORD: $CLEAR_CACHE_BITBUCKET_APP_PASSWORD
+                condition:
+                    changesets:
+                        includePaths:
+                            - package.json
+                            - yarn.lock
+            - step:
+                name: Lint, Test + Build
+                caches:
+                    - node
+                    - yarn
+                script:
+                    - node --version
+                    - yarn --version
+                    # Install npm packages with yarn.
+                    # Install packages to root node_modules, since pipelines seems cache it correctly there.
+                    - yarn install --non-interactive --frozen-lockfile --modules-folder 'node_modules'
+                    # Run "find-unused-sass-variables" command in package.json
+                    - yarn find-unused-sass-variables
+                    # Run "lint" command in package.json
+                    - yarn lint
+                    # Run "test" command in package.json
+                    - yarn test
+                    # Run "build" command in package.json. This will build prod by default.
+                    - yarn build
+definitions:
+    caches:
+        # https://community.atlassian.com/t5/Bitbucket-questions/Is-Yarn-supported-for-bitbucket-pipelines-caching/qaq-p/650816
+        yarn: /home/www/.cache/yarn/

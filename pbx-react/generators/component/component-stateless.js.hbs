@@ -1,0 +1,77 @@
+{{!--
+
+This template generates a react stateless function.
+
+See https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-stateless-function.md
+
+--}}
+import React from 'react';
+import PropTypes from 'prop-types';
+import { classname, cns } from 'src/util/bem';
+{{#if hasStoresProps}}
+import useStores from 'src/hooks/useStores';
+{{/if}}
+{{#if hasTranslationProp}}
+
+{{#if hasTranslationPrefix}}
+import useTranslationPrefix from 'src/hooks/useTranslationPrefix';
+{{else}}
+import useTranslation from 'src/hooks/useTranslation';
+{{/if}}
+{{/if}}
+import './{{pascalCase componentName}}.scss';
+
+const propTypes = {
+    className: PropTypes.string,
+};
+
+const defaultProps = {
+    className: '',
+};
+
+const {{pascalCase componentName}} = (props) => {
+
+    const cn = classname('{{kebabCase componentName}}');
+    {{#if hasStoresProps}}
+    {{!-- intentional new line below for perfect spacing between const and comments --}}
+
+    // You now have access to all the stores from stores.js via the stores variable.
+    // Delete the console log and these comments before committing!
+    const [stores] = useStores();
+    console.log(stores);
+    {{/if}}
+    {{#if hasTranslationProp}}
+    {{!-- intentional new line below for perfect spacing between render() and comments --}}
+
+    // You now have access to the 't' (translate) function
+    // Delete the console log and these comments before committing!
+{{#if hasTranslationPrefix}}
+    const { t } = useTranslationPrefix('components.{{pascalCase componentName}}');
+    console.log(t('message'));
+{{else}}
+    const { t } = useTranslation();
+    console.log(t('components.{{pascalCase componentName}}.message'));
+{{/if}}
+    {{/if}}
+
+    return (
+
+        <div
+            className={cns(
+                cn(),
+                props.className,
+            )}
+        >
+
+            {/* Add your code here! */}
+
+        </div>
+
+    );
+
+};
+
+{{pascalCase componentName}}.defaultProps = defaultProps;
+{{pascalCase componentName}}.propTypes    = propTypes;
+
+export default {{pascalCase componentName}};

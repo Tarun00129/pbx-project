@@ -1,0 +1,21 @@
+# Ignore everything
+*
+# Unignore all directories
+!*/
+
+# Ignore dist just incase.
+dist/
+dist-build/
+dist-tmp/
+
+# Manually whitelist things to run through prettier.js
+
+# translation file
+!src/assets/locales/en/translation.json
+
+# Root package.json only
+!/package.json
+
+# Readme and doc md files
+!/README.md
+!/docs/**/*.md
