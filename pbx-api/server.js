@@ -37,6 +37,7 @@ app.use(function (req, res, next) {
     "X-Requested-With,content-type"
   );
   res.setHeader("Access-Control-Allow-Credentials", true);
+  res.setHeader("Cache-Control", "no-cache");
   next();
 });
 
@@ -54,14 +55,17 @@ app.set("view engine", "html");
 app.set("view engine", "ejs");
 app.use(express.static("app"));
 app.use("/assets/uploads", express.static("assets/uploads"));
-
-// app.use(express.static("app"));
+app.use(express.static("../react-pbx/dist")); // Add this line for set front-end build
+app.use("/*", express.static("../react-pbx/dist")); // Add this line for fix url redirection/refres error
+//
 app.use(express.static("app"));
-// app.use("/assets", express.static("assets"));
+app.use(express.static("app"));
+app.use("/assets", express.static("assets"));
 app.use("/assets/uploads", express.static("assets/uploads"));
-// app.use("/app/assets/uploads", express.static("uploads"));
-// app.use("/uploads", express.static("uploads"));
-// app.use(express.static(path.join(__dirname, "/app/assets/uploads")));
+app.use("/app/assets/uploads", express.static("uploads"));
+app.use("/uploads", express.static("uploads"));
+app.use(express.static(path.join(__dirname, "/app/assets/uploads")));
+//
 // Start server
 app.listen(config.port, () => {
   console.log(
